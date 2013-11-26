@@ -45,10 +45,10 @@ class Matriz
       
       v = Array.new
       
-      for i in (0...@xsize) do
-	
-	for j in (0...@ysize) do
-	  
+      @xsize.times{
+	|i|
+	@ysize.times{
+	  |j|
 	 if((object[i,j].is_a? Numeric) && (self[i,j].is_a?(Racional)==true))
 	   
 	   aux = Racional.new(object[i,j],1)
@@ -67,9 +67,9 @@ class Matriz
 	   
 	 end
 	 
-	end
+                    }
 	
-      end
+      }
       
       Matriz.constructor(@xsize, @ysize, v)
       
@@ -179,23 +179,23 @@ class Matriz
    def *(object)
      if(object.is_a? Numeric)
       v = Array.new
-      for i in (0...@xsize) do
-	for j in (0...@ysize) do
+      @xsize.times{ |i|
+	@ysize.times{ |j|           
 	  v << (self[i,j] * object)
-	end
-      end
+                    }
+                  }
       return Matriz.constructor(@xsize,@ysize, v)
       
      elsif((object.is_a?(Matriz)==true) && (@ysize == object.getf()))
        v = Array.new
-      for i in (0...@xsize) do
-	for j in (0...@ysize) do
-	  v << 0
-	 for k in (0...@ysize) do
+      @xsize.times{ |i|
+	@ysize.times{ |j|           
+	   v << 0
+	 @ysize.times{ |k|
 	   v[(v.size)-1] = (v.last + (self[i,k] * object[k,j]))
-	end
-      end 
-      end
+                     }
+	      }
+        }
       return Matriz.constructor(@xsize,object.getc, v)
       
       
